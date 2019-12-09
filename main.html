@@ -1,0 +1,418 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>이상형 월드컵</title>
+</head>
+<body style = "background-color : ivory">
+<script>
+	if(!window.localStorage) { 
+	alert("세션 스토리지를 지원하지 않습니다.");
+	}
+
+	//localStorage.clear();
+	var temp = localStorage.getItem("boongeoppang");
+	if(temp == null)	localStorage.setItem("boongeoppang","0");
+	var temp = localStorage.getItem("gaeranppang");
+	if(temp == null)	localStorage.setItem("gaeranppang","0");
+	var temp = localStorage.getItem("goongoguma");
+	if(temp == null)	localStorage.setItem("goongoguma","0");
+	var temp = localStorage.getItem("gukhwappang");
+	if(temp == null)	localStorage.setItem("gukhwappang","0");
+	var temp = localStorage.getItem("hoppang");
+	if(temp == null)	localStorage.setItem("hoppang","0");
+	var temp = localStorage.getItem("hotteok");
+	if(temp == null)	localStorage.setItem("hotteok","0");
+	var temp = localStorage.getItem("odaeng");
+	if(temp == null)	localStorage.setItem("odaeng","0");
+	var temp = localStorage.getItem("takoyaki");
+	if(temp == null)	localStorage.setItem("takoyaki","0");
+</script>
+
+<h1 style = "font-family : 궁서">겨울 간식 최강자전</h1>
+<hr>
+<br>
+<p>
+<div id = "good">
+<h2 id = "h2" style = "color : blue">8강</h2>
+<div id = "div">
+<img id = "img1" src = "이상형월드컵.png", width = "500" height = "300">
+<span id = "vs">VS</span>
+<img id = "img2" src = "월드컵시작.png" width = "500" height = "300">
+</div>
+</p>
+선호도를 확인하시겠습니까? <input type = "button" value = "확인" onclick = "go_to_storage()"><br><br><br>
+<p style = "color : orange; font-style : italic">다시 시작하려면 새로고침 하세요</p>
+</div>
+<center>
+<div id="chartdiv"></div><br>
+<div id = "explain"></div>
+</center>
+<p></p>
+<script>	
+	var files = ["boongeoppang.jpg",
+		  "gaeranppang.jpg",
+     		  "goongoguma.jpg",
+		  "gukhwappang.jpg",
+		  "hoppang.jpg",
+		  "hotteok.jpg",
+		  "odaeng.jpg",
+		  "takoyaki.jpg"]
+	var files4 = new Array(5);
+	var files2 = new Array(3);
+	var files1;
+	var randomNum8 = new Array();var randomNum4 = new Array();var randomNum2 = new Array();//랜덤숫자 배열
+	var numX; var numY;//랜덤 숫자
+	var i = 0;	var j = 0;	var k = 0; var l = 0; var m = 0;
+	var num8 = 5; var num4 = 3; var num2 = 2;
+
+	for(var sp = 0 ; sp < 8 ; sp++){
+		var chk = 1;
+		while(chk>=1)
+		{
+			numX = Math.floor(Math.random()*8);
+	
+			chk = 0;
+			for(var a = 0; a < randomNum8.length ; a++)
+			{
+				if(numX == randomNum8[a]) chk++;
+			}	
+		}
+		randomNum8[sp] = numX;
+	}
+
+	for(var sp = 0 ; sp < 4 ; sp++){
+		var chk = 1;
+		while(chk>=1)
+		{
+			numX = Math.floor(Math.random()*4);
+	
+			chk = 0;
+			for(var a = 0; a < randomNum4.length ; a++)
+			{
+				if(numX == randomNum4[a]) chk++;
+			}	
+		}
+		randomNum4[sp] = numX;
+	}
+
+	for(var sp = 0 ; sp < 2 ; sp++){
+		var chk = 1;
+		while(chk>=1)
+		{
+			numX = Math.floor(Math.random()*2);
+	
+			chk = 0;
+			for(var a = 0; a < randomNum2.length ; a++)
+			{
+				if(numX == randomNum2[a]) chk++;
+			}	
+		}
+		randomNum2[sp] = numX;
+	}
+
+	var img1  = document.getElementById("img1")
+	var img2  = document.getElementById("img2")
+	var h2  = document.getElementById("h2")
+	var div  = document.getElementById("div")
+	var vs  = document.getElementById("vs")
+	
+	img1.addEventListener("click", change1)
+	img2.addEventListener("click", change2)
+
+	function change1()
+	{
+		if(num8 != 0)
+		{
+			files4[j] = img1.src;
+			img1.src = files[randomNum8[i]];
+			img2.src = files[randomNum8[i+1]];
+		
+			i += 2;
+			j++;
+			num8--;
+
+			if(num8 == 0) 
+			{
+				h2.innerHTML = "4강 시작"
+				img1.src = "4강.png"
+				img2.src = "시작.png"
+			}
+
+		}
+		else if(num4 != 0)	 
+		{
+			h2.innerHTML = "4강"
+			files2[k] = img1.src;
+			img1.src = files4[randomNum4[l]+1];
+			img2.src = files4[randomNum4[l+1]+1];
+		
+			k += 1;
+			l += 2;
+			num4--;
+			
+			if(num4 == 0) 
+			{
+				h2.innerHTML = "결승전 시작"
+				img1.src = "결승전.png"
+				img2.src = "시작.png"
+			}
+		}
+		else if(num2 != 0)
+		{
+			h2.innerHTML = "결승"
+			files1 = img1.src;
+			img1.src = files2[randomNum2[m]+1];
+			img2.src = files2[randomNum2[m+1]+1];
+			
+			num2--;
+			
+			if(num2 == 0) 
+			{
+				img1.src = "승자.png"
+				img2.src = "결과.png"
+			}				
+		}
+		else
+		{
+		 	h2.innerHTML = "축하합니다"
+			h2.style.color = "red"
+			div.innerHTML = "<img src = " + files1 + " width = '700' height = '400'>";
+		}
+	}	
+
+
+
+	function change2()
+	{
+		if(num8 != 0)
+		{
+			files4[j] = img2.src;
+			img1.src = files[randomNum8[i]];
+			img2.src = files[randomNum8[i+1]];
+			
+			i += 2;
+			j++;
+			num8--;
+
+			if(num8 == 0) 
+			{
+				h2.innerHTML = "4강 시작"
+				img1.src = "4강.png"
+				img2.src = "시작.png"
+			}
+
+		}
+		else if(num4 != 0)	 
+		{
+			h2.innerHTML = "4강"
+			files2[k] = img2.src;
+			img1.src = files4[randomNum4[l]+1];
+			img2.src = files4[randomNum4[l+1]+1];
+			
+			k += 1;
+			l += 2;
+			num4--;
+			if(num4 == 0) 
+			{
+				h2.innerHTML = "결승전 시작"
+				img1.src = "결승전.png"
+				img2.src = "시작.png"
+			}
+		}
+		else if(num2 != 0)
+		{
+			h2.innerHTML = "결승"
+			files1 = img2.src;
+			img1.src = files2[randomNum2[m]+1];
+			img2.src = files2[randomNum2[m+1]+1];
+			
+			num2--;
+			
+			if(num2 == 0) 
+			{
+				img1.src = "승자.png"
+				img2.src = "결과.png"
+			}				
+		}
+		else
+		{
+		 	h2.innerHTML = "축하합니다"
+			h2.style.color = "red"
+			div.innerHTML = "<img src = " + files1 + " width = '700' height = '400'>";
+		}
+	}	
+</script>
+
+
+<script>
+	var explain  = document.getElementById("explain")
+	var chk = 0;
+	function go_to_storage()
+	{
+		if(chk)
+		{
+			alert("다시시작하려면 새로고침 하세요");
+			return;
+		}
+		
+		if(files1 == null)
+		{
+			alert("이상형 월드컵을 완료하세요");
+			return;
+		}
+
+		var sbs = files1.split("/");
+		var cmp = sbs[sbs.length - 1];
+		
+		var win;
+		for(var a = 0 ; a < files.length ; a++)
+		{
+			if(files[a] == cmp)	
+				win = a; 
+		}
+		
+		var key_tmp = files[win].split(".");
+		var key_final = key_tmp[0];
+		//document.write(key);
+		var cnt, n
+		cnt = localStorage.getItem(key_final)
+		n = parseInt(cnt)
+		n += 1
+		localStorage.setItem(key_final,"" + n)
+
+		am4core.ready(function() {
+
+		// Themes begin
+		am4core.useTheme(am4themes_animated);
+		// Themes end
+
+		var chart = am4core.create("chartdiv", am4charts.XYChart);
+		chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+		var 붕어빵 = parseInt(localStorage.getItem("boongeoppang"))
+		var 계란빵 = parseInt(localStorage.getItem("gaeranppang"))
+		var 군고구마 = parseInt(localStorage.getItem("goongoguma"))
+		var 국화빵 = parseInt(localStorage.getItem("gukhwappang"))
+		var 호빵 = parseInt(localStorage.getItem("hoppang"))
+		var 호떡 = parseInt(localStorage.getItem("hotteok"))
+		var 오뎅 = parseInt(localStorage.getItem("odaeng"))
+		var 타코야끼 = parseInt(localStorage.getItem("takoyaki"))
+
+		chart.data = [
+  		{
+    			country: "붕어빵",
+    			visits: 붕어빵
+  		},
+  		{
+    			country: "계란빵",
+  			  visits: 계란빵
+  		},
+  		{
+    			country: "군고구마",
+    			visits: 군고구마
+  		},
+  		{
+    			country: "국화빵",
+    			visits: 국화빵
+  		},
+ 		{
+    			country: "호빵",
+    			visits: 호빵
+  		},
+ 		{
+   			 country: "호떡",
+    			visits: 호떡
+  		},
+ 		{
+   			 country: "오뎅",
+    			visits: 오뎅
+  		},
+ 		{
+    			country: "타코야끼",
+    			visits: 타코야끼
+ 	 	}
+		];
+
+		var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+		categoryAxis.renderer.grid.template.location = 0;
+		categoryAxis.dataFields.category = "country";
+		categoryAxis.renderer.minGridDistance = 40;
+		categoryAxis.fontSize = 11;
+
+		var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+		valueAxis.min = 0;
+		valueAxis.max = 20;
+		valueAxis.strictMinMax = true;
+		valueAxis.renderer.minGridDistance = 30;
+		// axis break
+		var axisBreak = valueAxis.axisBreaks.create();
+		axisBreak.startValue = 2100;
+		axisBreak.endValue = 22900;
+		axisBreak.breakSize = 0.005;
+
+		// make break expand on hover
+		var hoverState = axisBreak.states.create("hover");
+		hoverState.properties.breakSize = 1;
+		hoverState.properties.opacity = 0.1;
+		hoverState.transitionDuration = 1500;
+
+		axisBreak.defaultState.transitionDuration = 1000;
+		/*
+		// this is exactly the same, but with events
+		axisBreak.events.on("over", function() {
+  		axisBreak.animate(
+   		 [{ property: "breakSize", to: 1 }, { property: "opacity", to: 0.1 }],
+    			1500,
+    		am4core.ease.sinOut
+  		);
+		});
+		axisBreak.events.on("out", function() {
+  		axisBreak.animate(
+    		[{ property: "breakSize", to: 0.005 }, { property: "opacity", to: 1 }],
+    			1000,
+    		am4core.ease.quadOut
+  		);
+		});*/
+
+		var series = chart.series.push(new am4charts.ColumnSeries());
+		series.dataFields.categoryX = "country";
+		series.dataFields.valueY = "visits";
+		series.columns.template.tooltipText = "{valueY.value}";
+		series.columns.template.tooltipY = 0;
+		series.columns.template.strokeOpacity = 0;
+
+		// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+		series.columns.template.adapter.add("fill", function(fill, target) {
+ 		 return chart.colors.getIndex(target.dataItem.index);
+		});
+
+		}); // end am4core.ready()
+		explain.innerHTML = "<b>우승 횟수</b><br><br>"
+		chk++;
+		return;
+	}
+</script>
+	
+<!-- Styles -->
+<style>
+#chartdiv {
+  width: 50%;
+  height: 300px;
+}
+
+#good {
+	margin-left : 50px;
+	margin-right : 50px;
+}
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+<!-- Chart code -->
+<script>
+</script>
+</body>
+</html>
